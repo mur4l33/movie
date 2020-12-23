@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Rockers</title>
+    <link rel="stylesheet" href="./main.css">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body">
+    <div id="main">
+        <div id='navbar'>
+            <ul>
+                <li><a class="active" href="#home">Tamil Rockers</a></li>
+            </ul>
+        </div>
+        <div id="demo"></div>
+    </div>
+        <script>
+           
+            document.addEventListener('DOMContentLoaded',
+            ()=>{
+                
+                var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            datafetch(this);
+                        }
+                    };
+                    xhttp.open("GET", "movies.xml", true);
+                    xhttp.send();
+                    function datafetch(xml) {
+                            var x, y, i, xlen, xmlDoc, txt,category,first,last,studio,year;
+                            xmlDoc=xml.responseXML;
+                            txt="";
+                            rating=xmlDoc.getElementsByTagName('Movie');
+                            x = xmlDoc.getElementsByTagName("Title");
+                            y = xmlDoc.getElementsByTagName("Genre");
+                            first = xmlDoc.getElementsByTagName("First");
+                            last=xmlDoc.getElementsByTagName("Last");
+                            Studio=xmlDoc.getElementsByTagName("Studio");
+                            Year=xmlDoc.getElementsByTagName("Year");
+                            console.log(x.length);
+                            for (i = 0; i < x.length; i++) {
+                                txt +="<div id=card><h1 class=titlee>"+x[i].childNodes[0].nodeValue +"</h1><div class=vy><br>Rating:"+rating[i].getAttribute('rating')+
+                                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                y[i].childNodes[0].nodeValue+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                "<br><br>"+first[i].childNodes[0].nodeValue+
+                                last[i].childNodes[0].nodeValue+
+                                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                Studio[i].childNodes[0].nodeValue+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                Year[i].childNodes[0].nodeValue+"<br></div>"+"</div>";
+
+                            }
+                            console.log(txt);
+                            document.getElementById("demo").innerHTML =txt;
+
+                        }
+                    }
+                    
+            )
+            
+        </script>
+
+</body>
+
+</html>
